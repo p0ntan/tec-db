@@ -1,7 +1,7 @@
 version: "3.8"
 
 volumes:
-  node_modules:
+  express_node_modules:
 
 services:
 
@@ -16,15 +16,21 @@ services:
             "always"
 
     express:
-        image: "express"
+        image: "local-express"
         container_name: "express"
         build: "./server"
         working_dir: "/express/app"
         volumes:
           - "./server/app/:/express/app"
-          - "node_modules:/express/app/node_modules"
+          - "express_node_modules:/express/app/node_modules"
         ports:
           - "1337:1337"
         command: npm run dev
         restart:
             "on-failure"
+
+    oha:
+        image: "p0ntan/local-oha:1.0"
+        container_name: "oha"
+        links:
+          - "express:express-server"

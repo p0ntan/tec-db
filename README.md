@@ -2,11 +2,26 @@
 
 Försök till en teknisk studie som jämför mongodb och mariadb med att skapa och uppdatera mycket data där datan är baserat på inputs från en användare/testare.
 
-Enda det nu gör är starta två containrar med mariadb som databas, där data sätts in med en .sql fill vid uppstart. Sedan startar den en server där endast routen '/' är uppsatt och hämtar data från databasen.
+Data sätts in med en .sql fill vid uppstart till databasen. Sedan startar den en server där endast routen '/' är uppsatt än så länge.
 
-Starta alla containrar med
+Starta alla containrar med (kan ta lite tid med nedladdningar som behövs)
 ```
 docker-compose up -d --build
 ```
 
+Kommandot hämtar två containrar (mariadb och p0ntan/local-oha:1.0) remote samt bygger en express-server lokalt. Kör man kommandot en gång till kan man skippa --build flaggan.
+
+Kör sedan oha med
+```
+docker-compose run oha
+```
+
+I containern kan man testa kommandot:
+```
+oha -c 10000 http://express-server:1337
+```
+
+Url till server utanför nätverket
+```
 http://localhost:1337/
+```
