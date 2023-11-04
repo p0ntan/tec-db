@@ -4,33 +4,32 @@ volumes:
   express_node_modules:
 
 services:
+  mariadb:
+      image: "mariadb"
+      container_name: "mariadb"
+      volumes:
+        - ./mariadb/:/docker-entrypoint-initdb.d
+      environment:
+        MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
+      restart: 
+          "always"
 
-    mariadb:
-        image: "mariadb"
-        container_name: "mariadb"
-        volumes:
-          - ./mariadb/:/docker-entrypoint-initdb.d
-        environment:
-          MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
-        restart: 
-            "always"
+  express:
+      image: "local-express"
+      container_name: "express"
+      build: "./server"
+      working_dir: "/express/app"
+      volumes:
+        - "./server/app/:/express/app"
+        - "express_node_modules:/express/app/node_modules"
+      ports:
+        - "1337:1337"
+      command: npm run dev
+      restart:
+          "on-failure"
 
-    express:
-        image: "local-express"
-        container_name: "express"
-        build: "./server"
-        working_dir: "/express/app"
-        volumes:
-          - "./server/app/:/express/app"
-          - "express_node_modules:/express/app/node_modules"
-        ports:
-          - "1337:1337"
-        command: npm run dev
-        restart:
-            "on-failure"
-
-    oha:
-        image: "p0ntan/local-oha:1.0"
-        container_name: "oha"
-        links:
-          - "express:express-server"
+  oha:
+      image: "p0ntan/local-oha:1.0"
+      container_name: "oha"
+      links:
+        - "express:express-server"

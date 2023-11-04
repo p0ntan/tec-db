@@ -2,73 +2,28 @@ const express = require('express');
 const app = express();
 const port = 1337;
 const cors = require('cors');
-const mariadb = require('mariadb');
+const dbModel = require('./database');
 
 app.use(cors());
 
-// const data = [
-//     {
-//         name: 'Bill',
-//         age: 13,
-//         occupation: 'Student',
-//         hometown: 'Örebro',
-//         single: true
-//     },
-//     {
-//         name: 'Bob',
-//         age: 16,
-//         occupation: 'Plumber',
-//         hometown: 'Stockholm',
-//         single: true
-//     },
-//     {
-//         name: 'Jens',
-//         age: 18,
-//         occupation: 'Plumber',
-//         hometown: 'Jönköping',
-//         single: false
-//     },
-//     {
-//         name: 'Carl',
-//         age: 20,
-//         occupation: 'Artist',
-//         hometown: 'Stockholm',
-//         single: true
-//     }
-// ]
-
-const pool = mariadb.createPool({
-    host: 'mariadb',
-    user: 'root',
-    database: 'test',
-    // connectionLimit: 5
-});
-
-const sqlQuery = "SELECT * FROM customer;";
-
-async function mariadbGetAll() {
-    let conn;
-
-    try {
-        conn = await pool.getConnection();
-        const res = await conn.query(sqlQuery);
-
-        return res;
-  
-    } catch (err) {
-        throw err;
-    } finally {
-        if (conn) conn.end();
-    }
-}
-
 app.get('/', async (req, res) => {
-    const result = await mariadbGetAll();
+    res.json(['root is for comparing a "clean" route withouth db-requests'])
+})
+
+app.get('/mariadb/users', async (req, res) => {
+    const result = await dbModel.mariaDbGetData(dbModel.queries.allUsers);
 
     res.json(result);
 })
 
-// app.get('/users', (req, res) => {
+app.get('/mariadb/users/:id', async (req, res) => {
+    const id = req.params.id;
+    const result = await dbModel.mariaDbGetData(dbModel.queries.singleUser, [id]);
+
+    res.json(result);
+})
+
+// app.get('/mariadb/', (req, res) => {
 //     const fieldsParam = req.query.fields;
 //     const filterParam = req.query.filters;
 //     let newData = [...data];

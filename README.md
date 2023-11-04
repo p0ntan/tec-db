@@ -2,7 +2,7 @@
 
 Försök till en teknisk studie som jämför mongodb och mariadb med att skapa och uppdatera mycket data där datan är baserat på inputs från en användare/testare.
 
-Data sätts in med en .sql fill vid uppstart till databasen. Sedan startar den en server där endast routen '/' är uppsatt än så länge.
+Data sätts in med en .sql fill vid uppstart till databasen.
 
 Starta alla containrar med (kan ta lite tid med nedladdningar som behövs)
 ```
@@ -15,6 +15,16 @@ Kör sedan oha med
 ```
 docker-compose run oha
 ```
+
+## Routes
+
+```
+/                       root, hämtar ingen data
+/mariadb/users          hämtar alla användare
+/mariadb/users/12       hämtar användare baserat på id
+```
+
+## Kommandon
 
 I containern kan man testa kommandot:
 ```
