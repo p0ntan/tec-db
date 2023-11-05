@@ -9,7 +9,7 @@ Starta alla containrar med (kan ta lite tid med nedladdningar som behövs).
 docker-compose up -d --build
 ```
 
-Kommandot hämtar två containrar (mariadb och p0ntan/local-oha:1.0) remote samt bygger en express-server lokalt. Nästa gång man startar upp nätverket har man redan byggt alla containers som behövs och kan köra kommandot utan --build flaggan.
+Kommandot hämtar tre containrar (mariadb, mongo och p0ntan/local-oha:1.0) remote samt bygger en express-server lokalt. Nästa gång man startar upp nätverket har man redan byggt alla containers som behövs och kan köra kommandot utan --build flaggan.
 
 ## Lokala ändringar
 
