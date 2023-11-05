@@ -70,6 +70,19 @@ oha -c 10000 http://express-server:1337/mariadb/users
 oha -c 10000 http://express-server:1337/mongodb/users
 ```
 
+I containern finns även ett testskript man kan köra för enklare testning
+```
+./testscript.bash -h
+
+Ex.
+./testscript.bash read
+./testscript.bash read --mongo
+
+./testscript.bash update
+./testscript.bash update --mongo
+```
+
+
 Url till server utanför nätverket
 ```
 http://localhost:1337/

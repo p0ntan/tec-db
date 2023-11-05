@@ -44,7 +44,10 @@ services:
   oha:
     image: "p0ntan/local-oha:1.0"
     container_name: "oha"
+    working_dir: "/script"
     links:
       - "express:express-server"
+    volumes:
+      - "./oha/script/:/script"
 
 ## TODO add depends on for dependency where needed

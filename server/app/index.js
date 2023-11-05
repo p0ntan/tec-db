@@ -94,7 +94,6 @@ app.get('/mariadb/update/users', async (req, res) => {
     let message = "ok"
 
     if (result.affectedRows == 0) {
-        res.status(400);
         message = "not ok";
     }
 
@@ -107,7 +106,7 @@ app.get('/mongodb/update/users', async (req, res) => {
     const result = await mongodModel.updateData({_id : objectId}, { $set: { hash: "hashtest" } });
     let message = "ok"
 
-    if (result.modifiedCount == 0) {
+    if (result.matchedCount == 0) {
         res.status(400);
         message = "not ok";
     }
