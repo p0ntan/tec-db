@@ -32,21 +32,23 @@ mongosh
 Alla routes är GET-routes för att enklare kunna använda sig utav [oha](https://github.com/hatoo/oha) för att skicka många requests. Routes utgår från att hämta data via mariadb, men vissa routes kan man med en param ?mongo=1 istället hämta data från mongodb. Med parameten ?nores=1 skickas datan inte till klienten, för att man ska kunna jämföra vad som kan ta tid och hitta delar man kan försöka göra effektiva.
 
 ```
+<db> = mariadb eller mongodb
+
 /                   root, hämtar ingen data
 
 Read (cRud)
-/users              hämtar alla användare
+/<db>/users         hämtar alla användare
     params:
         nores=1     hämtar data men skickar inte vidare till klienten
-        mongo=1     hämtar data från mongodb
-/usersview          hämtar alla användare via en vy
+
+/<db>/usersview     hämtar alla användare via en vy
     params:
         nores:1     hämtar data men skickar inte vidare till klienten
-        mongo=1     hämtar data från mongodb
-/users/12           hämtar användare baserat på id
+
+/<db>/singleuser    hämtar användare baserat på id
 
 Update (crUd)
-/update/users       uppdaterar lösenord hos slumpmässig användare
+/<db>/update/users  uppdaterar lösenord hos slumpmässig användare
 
 ``` 
 

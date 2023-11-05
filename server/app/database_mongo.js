@@ -1,6 +1,7 @@
 const mongo = require("mongodb").MongoClient;
 const dsn = "mongodb://mongodb:27017/test";
 const colName = "user";
+const jsonData = require('./mock_db.users.json');
 
 async function openDb () {
     let client;
@@ -32,6 +33,32 @@ async function getData(query, options) {
     return data || [];
 }
 
+async function updateData(query, options) {
+    const db = await openDb();
+    let data;
+
+    try {
+        const collection = await db.collection(colName);
+
+        data = await collection.updateOne(query, options);
+    } catch (err) {
+        console.error(`Error getting ${colName}:`, err);
+    }
+
+    await db.client.close();
+
+    return data || [];
+}
+
+function getRandomId() {
+    const numberOfUsers = jsonData.length;
+    const randomNumber = Math.floor(Math.random() * numberOfUsers);
+
+    return jsonData[randomNumber]._id.$oid;
+}
+
 module.exports = {
-    getData
+    getData,
+    updateData,
+    getRandomId    
 }
