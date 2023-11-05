@@ -3,6 +3,8 @@ const app = express();
 const port = 1337;
 const cors = require('cors');
 const mariaModel = require('./database_maria');
+const mongodModel = require('./database_mongo');
+
 
 app.use(cors());
 
@@ -15,7 +17,14 @@ app.get('/', async (req, res) => {
  */
 app.get('/users', async (req, res) => {
     const nores = req.query.nores;
-    let result = await mariaModel.getData(mariaModel.queries.allUsers);
+    const mongo = req.query.mongo;
+    let result;
+
+    if (!mongo) {
+        result = await mariaModel.getData(mariaModel.queries.allUsers);
+    } else {
+        result = await mongodModel.getData();
+    }
 
     if (nores) {
         result = []
@@ -48,6 +57,7 @@ app.get('/users/:id', async (req, res) => {
 app.get('/update/users', async (req, res) => {
     const randomNumber = Math.floor(Math.random() * 1000);
     const result = await mariaModel.updateData(mariaModel.queries.updateUser, ["hashtest", randomNumber]);
+    
     let message = "ok"
 
     if (result.affectedRows == 0) {

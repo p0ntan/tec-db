@@ -5,38 +5,46 @@ volumes:
 
 services:
   mariadb:
-      image: "mariadb"
-      container_name: "mariadb"
-      volumes:
-        - ./mariadb/:/docker-entrypoint-initdb.d
-      environment:
-        MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
-      restart: 
-          "always"
+    image: "mariadb"
+    container_name: "mariadb"
+    volumes:
+      - ./mariadb/:/docker-entrypoint-initdb.d
+    environment:
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
+    restart: 
+        "always"
 
-  # mongo:
-  #   image: mongo
-  #   restart: always
-  #   environment:
-  #     MONGO_INITDB_ROOT_USERNAME: root
-  #     MONGO_INITDB_ROOT_PASSWORD: example
+  mongo:
+    image: "mongo"
+    container_name: "mongodb"
+    volumes:
+      # - ./mongodb/data:/data/db
+      - ./mongodb/init.js:/docker-entrypoint-initdb.d/init.js:ro
+    ports:
+      - "27017:27017"
+    restart: always
 
   express:
-      image: "local-express"
-      container_name: "express"
-      build: "./server"
-      working_dir: "/express/app"
-      volumes:
-        - "./server/app/:/express/app"
-        - "express_node_modules:/express/app/node_modules"
-      ports:
-        - "1337:1337"
-      command: npm run dev
-      restart:
-          "on-failure"
+    image: "local-express"
+    container_name: "express"
+    build: "./server"
+    working_dir: "/express/app"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - "./server/app/:/express/app"
+      - "express_node_modules:/express/app/node_modules"
+    ports:
+      - "1337:1337"
+    command: npm run dev
+    restart:
+        "on-failure"
 
   oha:
-      image: "p0ntan/local-oha:1.0"
-      container_name: "oha"
-      links:
-        - "express:express-server"
+    image: "p0ntan/local-oha:1.0"
+    container_name: "oha"
+    links:
+      - "express:express-server"
+
+## TODO add depends on for dependency where needed
