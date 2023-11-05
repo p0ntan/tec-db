@@ -52,9 +52,11 @@ Update (crUd)
 
 ``` 
 
-## Oha i container
+## Oha
+
 [Oha](https://github.com/hatoo/oha) används för att testa frågor till servern.
 
+### I container
 Starta upp containern med oha:
 ```
 docker-compose run oha
@@ -82,6 +84,9 @@ Ex.
 ./testscript.bash update --mongo
 ```
 
+### Oha lokalt
+
+Att ladda ner oha lokalt ger bättre svarstider då man har en färre container igång.
 
 Url till server utanför nätverket
 ```
