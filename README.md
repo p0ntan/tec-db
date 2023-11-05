@@ -42,6 +42,7 @@ Read (cRud)
 /usersview          hämtar alla användare via en vy
     params:
         nores:1     hämtar data men skickar inte vidare till klienten
+        mongo=1     hämtar data från mongodb
 /users/12           hämtar användare baserat på id
 
 Update (crUd)
