@@ -15,7 +15,6 @@ Kommandot hämtar tre containrar (mariadb, mongo och p0ntan/local-oha:1.0) remot
 
 Servern och sql-datan läses in som volymer. När containrarna är igång kan man själv lägga till funktionalitet i app.js om man vill testa själv. I containrarna för mongodb och mariadb kan man använda cli för att gå direkt in i databasen.
 
-### MariaDB
 För att komma in i mariadb:
 ```
 docker exec -it mariadb bash
