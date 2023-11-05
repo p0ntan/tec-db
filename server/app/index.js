@@ -14,7 +14,7 @@ app.get('/', async (req, res) => {
  * cRud
  */
 app.get('/users', async (req, res) => {
-    const nores = req.query.result;
+    const nores = req.query.nores;
     let result = await mariaModel.getData(mariaModel.queries.allUsers);
 
     if (nores) {
@@ -25,8 +25,8 @@ app.get('/users', async (req, res) => {
 })
 
 app.get('/usersview', async (req, res) => {
-    const nores = req.query.result;
-    const result = await mariaModel.getData(mariaModel.queries.viewUsers);
+    const nores = req.query.nores;
+    let result = await mariaModel.getData(mariaModel.queries.viewUsers);
 
     if (nores) {
         result = []
