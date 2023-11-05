@@ -2,19 +2,14 @@
 
 Försök till en teknisk studie som jämför mongodb och mariadb med att skapa och uppdatera mycket data där datan är baserat på inputs från en användare/testare.
 
-Data sätts in med en .sql fill vid uppstart till databasen.
+Data sätts in med en .sql fil vid uppstart till databasen.
 
 Starta alla containrar med (kan ta lite tid med nedladdningar som behövs)
 ```
 docker-compose up -d --build
 ```
 
-Kommandot hämtar två containrar (mariadb och p0ntan/local-oha:1.0) remote samt bygger en express-server lokalt. Kör man kommandot en gång till kan man skippa --build flaggan.
-
-Kör sedan oha med
-```
-docker-compose run oha
-```
+Kommandot hämtar två containrar (mariadb och p0ntan/local-oha:1.0) remote samt bygger en express-server lokalt. Nästa gång man startar upp nätverket har man redan byggt alla containers som behövs och kan köra kommandot utan --build flaggan.
 
 ## Routes
 
@@ -33,11 +28,21 @@ Update (crUd)
 
 ``` 
 
-## Kommandon
+## Oha i container
+[Oha](https://github.com/hatoo/oha) används för att testa frågor till servern.
 
-I containern kan man testa kommandot:
+Starta upp containern med oha:
 ```
-oha -c 10000 http://express-server:1337
+docker-compose run oha
+```
+
+I containern kan man testa kommandot.
+
+```
+oha -c 10000 http://express-server:1337/
+
+ex.
+oha -c 10000 http://express-server:1337/users
 ```
 
 Url till server utanför nätverket
