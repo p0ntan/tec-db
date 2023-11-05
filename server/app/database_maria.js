@@ -8,9 +8,11 @@ const pool = mariadb.createPool({
 });
 
 const allUsers = "SELECT * FROM user;";
+const viewUsers = "SELECT * FROM v_user;";
 const singleUser = "SELECT * FROM user WHERE id = ?;" 
+const updateUser = "UPDATE user SET hash = ? WHERE id = ?;"
 
-async function mariaDbGetData(sqlQuery, args=[]) {
+async function getData(sqlQuery, args=[]) {
     let conn;
 
     try {
@@ -26,10 +28,30 @@ async function mariaDbGetData(sqlQuery, args=[]) {
     }
 }
 
+async function updateData(sqlQuery, args=[]) {
+    let conn;
+
+    try {
+        conn = await pool.getConnection();
+        const res = await conn.query(sqlQuery, args);
+
+        return res;
+  
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) conn.end();
+    }
+}
+
+
 module.exports = {
-    mariaDbGetData,
+    getData,
+    updateData,
     queries: {
         allUsers,
-        singleUser
+        singleUser,
+        viewUsers,
+        updateUser
     }
 }

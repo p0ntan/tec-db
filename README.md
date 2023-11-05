@@ -19,10 +19,19 @@ docker-compose run oha
 ## Routes
 
 ```
-/                       root, hämtar ingen data
-/mariadb/users          hämtar alla användare
-/mariadb/users/12       hämtar användare baserat på id
-```
+/                   root, hämtar ingen data
+
+Read (cRud)
+/users              hämtar alla användare
+/users?nores=1      hämtar alla användare, tomt svar till klienten
+/usersview          hämtar alla användare via en vy
+/usersview?nores=1  hämtar alla användare via en vy, tomt svar till klienten
+/users/12           hämtar användare baserat på id
+
+Update (crUd)
+/update/users       uppdaterar lösenord hos slumpmässig användare
+
+``` 
 
 ## Kommandon
 
