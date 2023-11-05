@@ -12,6 +12,8 @@ app.get('/', async (req, res) => {
     res.json(['root is for comparing a "clean" route withouth db-requests'])
 })
 
+// TODO split up mongodb and mariadb request to se difference with/without if statements in controller
+
 /**
  * cRud
  */
