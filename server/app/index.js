@@ -23,7 +23,7 @@ app.get('/users', async (req, res) => {
     if (!mongo) {
         result = await mariaModel.getData(mariaModel.queries.allUsers);
     } else {
-        result = await mongodModel.getData();
+        result = await mongodModel.getData({}, { projection: { _id: 1, username: 1, hash: 1 }});
     }
 
     if (nores) {

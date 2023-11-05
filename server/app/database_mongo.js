@@ -15,14 +15,14 @@ async function openDb () {
     }
 }
 
-async function getData(query) {
+async function getData(query, options) {
     const db = await openDb();
     let data;
 
     try {
         const collection = await db.collection(colName);
 
-        data = await collection.find(query).toArray();
+        data = await collection.find(query, options).toArray();
     } catch (err) {
         console.error(`Error getting ${colName}:`, err);
     }
