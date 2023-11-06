@@ -10,7 +10,8 @@ USE `test`;
 --
 
 DROP TABLE IF EXISTS `trip_varchar`;
-DROP TABLE IF EXISTS `trip`;
+DROP TABLE IF EXISTS `trip_text`;
+DROP TABLE IF EXISTS `trip_mediumtext`;
 DROP TABLE IF EXISTS `admin`;
 DROP TABLE IF EXISTS `transaction`;
 DROP TABLE IF EXISTS `card`;
