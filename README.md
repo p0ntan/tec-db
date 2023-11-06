@@ -5,7 +5,7 @@ Syftet med detta repo är att själv kunna testa olika databasfrågor för att a
 
 Vid uppstart av repot läses det in 1000 kunder i vardera databas, MariaDB och MongoDB, med liknande kunddata. I MariaDB finns flera tabeller som kan joinas, och i MongoDB är det endast en collection som istället har nästlad data som kan sorteras ut.
 
-Under undersökningen och slutsats finns instruktioner om hur man själv kan sätta upp repot lokalt och köra i containers.
+Nedanför undersökningen och slutsats finns instruktioner om hur man själv kan sätta upp repot lokalt och köra i containers.
 
 ## Undersökning
 
