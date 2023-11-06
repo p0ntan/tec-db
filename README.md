@@ -1,6 +1,62 @@
 # Jämför snabbheten mellan olika operationer i mariadb eller mongodb
 Ett verktyg att testa olika datatyper och dess hastighet i olika databaser.
 
+Syftet med detta repo är att själv kunna testa olika databasfrågor för att avgöra vilken databas som kan passa bäst och kunna hitta eventuella flaskhalsar som kan göra en applikation långsammare. Repot kan köras lokalt med ett kommando, där man själv kan lägga till egna sql-frågor eller annat i databasen.
+
+Vid uppstart av repot läses det in 1000 kunder i vardera databas, MariaDB och MongoDB, med liknande kunddata. I MariaDB finns flera tabeller som kan joinas, och i MongoDB är det endast en collection som istället har nästlad data som kan sorteras ut.
+
+Under undersökningen och slutsats finns instruktioner om hur man själv kan sätta upp repot lokalt och köra i containers.
+
+## Undersökning
+
+De olika delarna förutom D testas i CRUD, då D inte kommer vara en del som kommer ha så stor inverkan på applikationen då den troligen sällan kommer användas.
+
+För READ används routen /&lt;db&gt;/usersview som i MariaDB är en vy som i sin tur joinar 3 olika tabeller (user, card och admin) och i MongoDB filtreras istället datan så att man får likvärdiga svar.
+
+För UPDATE används routen /&lt;db&gt;/update/users som uppdaterar hash hos en slupmässig användare. Värt att notera att det här kan ta något längre tid att slumpa fram ett id till MongoDB, något som skulle kunna påverka slutresultatet. 
+
+För CREATE används routen /&lt;db&gt;/create/users som skapar en användare, där samma användarnamn och hash används vid varje ny användare (username är alltså inte unikt i testet, endast id).
+
+För varje request som görs skapas en databasuppkoppling, vilket det kan påverka resultatet om en databas har en långsammare uppkopplingstid.
+
+## Tester
+
+Testerna har gjorts lokalt genom att köra kommandot:
+```
+oha -c 1000 &lt;url&gt;
+```
+Kommandot har körts 10 gånger pr test och sedan tas ett genomsnittsvärde.
+
+/ root (refvärde, inga frågor till databasen)
+~ 1500 req/s
+
+### MariaDb
+/usersview – testas när det är 1000 rader i databasen
+~ 200 req/s
+
+/update/users – testas när det är 1000 rader i databasen
+~1200 req/s
+
+/create/users
+~1100 req/s
+
+### MongoDB
+/usersview – testas när det är 1000 kunder i databasen
+~ 80 req/s
+
+/update/users – testas när det är 1000 kunder i databasen
+~ 300 req/s
+
+/create/users
+~ 330 req/s
+
+## Slutsats
+MariaDB är avsevärt mycket snabbare än MongoDB i detta testet, speciellt i avsende av att uppdatera och skapa användare. En möjlig orsak kan mycket väl vara att man gör en ny uppkoppling till varje request, vilket skulle kunna öka hastigheten för MongoDB, men ett sådant test har inte gjorts. MongoDB kan eventuellt ha mer funktionalitet som kan väga upp för snabbheten, beroende på vad man ser för sig en applikation ska göra.
+
+Är hastighet det som avgör ser jag för mig att man väljer MariaDB över MongoDB.
+
+## Testa själv
+
 Data sätts in med en .sql fil vid uppstart till mariadb, och likvärdig data läses in till mongodb med ett json-objekt.
 
 Starta alla containrar med (kan ta lite tid med nedladdningar som behövs).
