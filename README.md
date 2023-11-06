@@ -19,6 +19,8 @@ För CREATE används routen /&lt;db&gt;/create/users som skapar en användare, d
 
 För varje request som görs skapas en databasuppkoppling, vilket det kan påverka resultatet om en databas har en långsammare uppkopplingstid.
 
+Vilken prestanda en dator har kommer påverka resultatet, man ska här nog se req/s i förhållande till samma request till den andra databasen.
+
 ## Tester
 
 Testerna har gjorts lokalt genom att köra kommandot:
