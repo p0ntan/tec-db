@@ -21,8 +21,7 @@ CREATE TABLE `user`(
     `username` VARCHAR(30) NOT NULL,
     `hash` VARCHAR(100) NOT NULL,
 
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `username` (`username`)
+    PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `card`(

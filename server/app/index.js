@@ -97,6 +97,7 @@ app.get('/mariadb/update/users', async (req, res) => {
     let message = "ok"
 
     if (result.affectedRows == 0) {
+        res.status(400);
         message = "not ok";
     }
 
@@ -108,6 +109,41 @@ app.get('/mongodb/update/users', async (req, res) => {
     const randomId = mongodModel.getRandomId();
     const objectId = new ObjectId(randomId);
     const result = await mongodModel.updateData(colName, {_id : objectId}, { $set: { hash: "hashtest" } });
+    let message = "ok"
+
+    if (result.matchedCount == 0) {
+        res.status(400);
+        message = "not ok";
+    }
+
+    res.send(message)
+})
+
+/**
+ * Crud
+ */
+// Route /<db>/create/users updates a random user hash
+app.get('/mariadb/create/users', async (req, res) => {
+    const username = "testuser"
+    const hash = "$2a$10$Rbuv4zHlI56aamauJNWkbuSXKWl/mIww5c497yHHcPuNEXr8RQ.MW";
+    const result = await mariaModel.createData(mariaModel.queries.createUser, [username, hash])
+    
+    let message = "ok"
+
+    if (result.affectedRows == 0) {
+        res.status(400);
+        message = "not ok";
+    }
+
+    res.send(message)
+})
+
+app.get('/mongodb/create/users', async (req, res) => {
+    const colName = "user";
+    const username = "testuser"
+    const hash = "$2a$10$Rbuv4zHlI56aamauJNWkbuSXKWl/mIww5c497yHHcPuNEXr8RQ.MW";
+    const result = await mongodModel.createData(colName, {username, hash});
+    
     let message = "ok"
 
     if (result.matchedCount == 0) {

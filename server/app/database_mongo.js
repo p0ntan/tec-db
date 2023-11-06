@@ -41,7 +41,24 @@ async function updateData(colName, query, options) {
 
         data = await collection.updateOne(query, options);
     } catch (err) {
-        console.error(`Error getting ${colName}:`, err);
+        console.error(`Error updating ${colName}:`, err);
+    }
+
+    await db.client.close();
+
+    return data;
+}
+
+async function createData(colName, doc) {
+    const db = await openDb();
+    let data;
+
+    try {
+        const collection = await db.collection(colName);
+
+        data = await collection.insertOne(doc);
+    } catch (err) {
+        console.error(`Error creating in ${colName}:`, err);
     }
 
     await db.client.close();
@@ -59,5 +76,6 @@ function getRandomId() {
 module.exports = {
     getData,
     updateData,
-    getRandomId   
+    getRandomId,
+    createData
 }

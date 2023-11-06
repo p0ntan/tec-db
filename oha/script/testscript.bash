@@ -43,7 +43,9 @@ function usage
 "   use <server>           Set the servername (bthloggen-server or other service name)."
 "   read                   Test read data through api, default is MariaDB."
 "      --mongo             Uses MongoDB"
-"   rupdate                Test update data through api, default is MariaDB."
+"   update                 Test update data through api, default is MariaDB."
+"      --mongo             Uses MongoDB"
+"   create                 Test create data through api, default is MariaDB."
 "      --mongo             Uses MongoDB"
 ""
 ""
@@ -153,6 +155,25 @@ function app-update
 }
 
 #
+# Function to test create
+#
+function app-create
+{
+    local flag
+    local url
+    local dbname
+
+    flag="$*"
+    dbname="mariadb"
+
+    if [ "$flag" == "--mongo" ]; then
+        dbname="mongodb"
+    fi
+
+    oha -c 10000 "$DOMAIN:$PORT/$dbname/create/users"
+}
+
+#
 # Process options
 #
 function main
@@ -174,7 +195,8 @@ function main
             url            \
             | server       \
             | read         \
-            | update)
+            | update       \
+            | create)
                 command="$1"
                 shift
                 app-"$command" "$@"

@@ -48,6 +48,9 @@ Read (cRud)
 Update (crUd)
 /<db>/update/users  uppdaterar lösenord hos slumpmässig användare
 
+Create (Crud)
+/<db>/create/users  lägger till ny användare
+
 Create and read long texts
 
 Create

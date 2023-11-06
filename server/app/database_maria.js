@@ -11,6 +11,7 @@ const allUsers = "SELECT * FROM user;";
 const viewUsers = "SELECT * FROM v_user;";
 const singleUser = "SELECT * FROM user WHERE id = ?;" 
 const updateUser = "UPDATE user SET hash = ? WHERE id = ?;"
+const createUser = "insert into user (username, hash) VALUES (?, ?);"
 const createMediumtext = "insert into trip_mediumtext (geojson) VALUES (?);"
 const createText = "insert into trip_text (geojson) VALUES (?);"
 const createVarchar = "insert into trip_varchar (geojson) VALUES (?);"
@@ -80,6 +81,7 @@ module.exports = {
         getMediumtext,
         getText,
         createVarchar,
-        getVarchar
+        getVarchar,
+        createUser
     }
 }
