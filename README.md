@@ -53,7 +53,7 @@ Kommandot har körts 10 gånger pr test och sedan tas ett genomsnittsvärde.
 ~ 330 req/s
 
 ## Slutsats
-MariaDB är avsevärt mycket snabbare än MongoDB i detta testet, speciellt i avsende av att uppdatera och skapa användare. En möjlig orsak kan mycket väl vara att man gör en ny uppkoppling till varje request, vilket skulle kunna öka hastigheten för MongoDB, men ett sådant test har inte gjorts. MongoDB kan eventuellt ha mer funktionalitet som kan väga upp för snabbheten, beroende på vad man ser för sig en applikation ska göra.
+MariaDB är avsevärt mycket snabbare än MongoDB i detta testet, speciellt vid uppdatering och skapandet av en användare. En möjlig orsak kan mycket väl vara att i koden görs gör en ny uppkoppling till varje request, vilket kan påverka de olika databaserna olika mycket. MongoDB kan eventuellt ha mer funktionalitet som kan väga upp för snabbheten, beroende på vad man ser för sig en applikation ska göra.
 
 Är hastighet det som avgör ser jag för mig att man väljer MariaDB över MongoDB.
 
