@@ -68,6 +68,11 @@ docker-compose up -d --build
 
 Kommandot hämtar tre containrar (mariadb, mongo och p0ntan/local-oha:1.0) remote samt bygger en express-server lokalt. Nästa gång man startar upp nätverket har man redan byggt alla containers som behövs och kan köra kommandot utan --build flaggan.
 
+Det vill spara en local volym i docker för detta, detta gör att man kan jobba i containern och installera paket som sedan sparas i den lokala volymen. För att ta bort volymen när man stänger nätverket kör kommandot:
+```
+docker-compose down -v
+```
+
 ## Lokala ändringar
 
 Servern och sql-datan läses in som volymer. När containrarna är igång kan man själv lägga till funktionalitet i app.js om man vill testa själv. I containrarna för mongodb och mariadb kan man använda cli för att gå direkt in i databasen.
