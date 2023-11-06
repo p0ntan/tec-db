@@ -1,8 +1,7 @@
-# Teknisk studie för att jämföra snabbheten vid frågor till databas via ett api
+# Jämför snabbheten mellan olika operationer i mariadb eller mongodb
+Ett verktyg att testa olika datatyper och dess hastighet i olika databaser.
 
-Försök till en teknisk studie som jämför mongodb och mariadb med att skapa och uppdatera mycket data där datan är baserat på inputs från en användare/testare.
-
-Data sätts in med en .sql fil vid uppstart till databasen.
+Data sätts in med en .sql fil vid uppstart till mariadb, och likvärdig data läses in till mongodb med ett json-objekt.
 
 Starta alla containrar med (kan ta lite tid med nedladdningar som behövs).
 ```
