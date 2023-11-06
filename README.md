@@ -23,7 +23,7 @@ För varje request som görs skapas en databasuppkoppling, vilket det kan påver
 
 Testerna har gjorts lokalt genom att köra kommandot:
 ```
-oha -c 1000 &lt;url&gt;
+oha -c 10000 <url>
 ```
 Kommandot har körts 10 gånger pr test och sedan tas ett genomsnittsvärde.
 
