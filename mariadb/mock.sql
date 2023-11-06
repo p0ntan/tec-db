@@ -8,6 +8,9 @@ USE `test`;
 --
 -- DDL
 --
+
+DROP TABLE IF EXISTS `trip_varchar`;
+DROP TABLE IF EXISTS `trip`;
 DROP TABLE IF EXISTS `admin`;
 DROP TABLE IF EXISTS `transaction`;
 DROP TABLE IF EXISTS `card`;
@@ -46,6 +49,29 @@ CREATE TABLE `admin`(
 
     PRIMARY KEY (`user_id`),
     FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+);
+
+
+CREATE TABLE `trip_mediumtext`(
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `geojson` MEDIUMTEXT NOT NULL,
+
+    PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `trip_varchar`(
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `geojson` VARCHAR(16000) NOT NULL,
+
+    PRIMARY KEY (`id`)
+);
+
+
+CREATE TABLE `trip_text`(
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `geojson` TEXT(65535) NOT NULL,
+
+    PRIMARY KEY (`id`)
 );
 
 --
