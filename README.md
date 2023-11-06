@@ -37,17 +37,39 @@ Alla routes är GET-routes för att enklare kunna använda sig utav [oha](https:
 
 Read (cRud)
 /<db>/users         hämtar alla användare
-    params:
+    query:
         nores=1     hämtar data men skickar inte vidare till klienten
 
 /<db>/usersview     hämtar alla användare via en vy
-    params:
+    query:
         nores:1     hämtar data men skickar inte vidare till klienten
 
 /<db>/singleuser    hämtar användare baserat på id
 
 Update (crUd)
 /<db>/update/users  uppdaterar lösenord hos slumpmässig användare
+
+Create and read long texts
+
+Create
+/mariadb/create/varchar
+/mariadb/create/text
+/mariadb/create/mediumtext
+
+    Alla routes kan användas med query length=<length> (medium/long)
+        varchar/text/mediumtext:
+            utan query = "test med kort sträng" (20 tecken) 
+        varchar/text/mediumtext
+            medium = 10163 tecken
+        text
+            long = 20325 tecken
+        mediumtext
+            long = 99999 tecken
+
+Read
+/mariadb/varchar/:id
+/mariadb/text/:id
+/mariadb/mediumtext/:id
 
 ``` 
 
