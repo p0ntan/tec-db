@@ -16,6 +16,27 @@ DROP TABLE IF EXISTS `admin`;
 DROP TABLE IF EXISTS `transaction`;
 DROP TABLE IF EXISTS `card`;
 DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `bike`;
+DROP TABLE IF EXISTS `bike_varchar`;
+
+CREATE TABLE `bike`(
+    `id` VARCHAR(6) NOT NULL,
+    `city_id` VARCHAR(10) NOT NULL,
+    `status_id` INT NOT NULL,
+    `long` DECIMAL(9,7),
+    `lat` DECIMAL(9,7),
+
+    PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `bike_varchar`(
+    `id` VARCHAR(6) NOT NULL,
+    `city_id` VARCHAR(10) NOT NULL,
+    `status_id` INT NOT NULL,
+    `geometry` VARCHAR(150),
+
+    PRIMARY KEY (`id`)
+);
 
 CREATE TABLE `user`(
     `id` INT NOT NULL AUTO_INCREMENT,
@@ -153,9 +174,18 @@ LEFT JOIN
     ON user.id = admin.user_id
 ;
 
--- --
--- -- SELECT
--- --
+INSERT INTO `bike`
+    (`id`, `city_id`, `status_id`)
+VALUES
+    ('GOGOGO', 2, 1)
+;
 
--- SELECT * FROM v_user;
--- SELECT * FROM transaction;
+INSERT INTO `bike_varchar`
+    (`id`, `city_id`, `status_id`)
+VALUES
+    ('GOGOGO', 2, 1)
+;
+
+UPDATE `bike`
+SET `lat` = 1.003
+WHERE `id` = 'GOGOGO';

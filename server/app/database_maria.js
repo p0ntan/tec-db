@@ -18,6 +18,8 @@ const createVarchar = "insert into trip_varchar (geojson) VALUES (?);"
 const getVarchar = "SELECT * FROM trip_varchar WHERE id = ?;"
 const getText = "SELECT * FROM trip_text WHERE id = ?;"
 const getMediumtext = "SELECT * FROM trip_mediumtext WHERE id = ?;"
+const updateBike = "UPDATE bike SET `long` = ?, `lat` = ? WHERE id = ?;"
+const updateBikeVarchar = "UPDATE bike_varchar SET `geometry` = ? WHERE id = ?;"
 
 async function getData(sqlQuery, args=[]) {
     let conn;
@@ -82,6 +84,8 @@ module.exports = {
         getText,
         createVarchar,
         getVarchar,
-        createUser
+        createUser,
+        updateBike,
+        updateBikeVarchar
     }
 }

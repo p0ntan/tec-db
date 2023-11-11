@@ -244,5 +244,69 @@ app.get('/mariadb/create/text', async (req, res) => {
     res.send(message)
 })
 
+app.get('/mariadb/bike', async (req, res) => {
+    const id = 'GOGOGO';
+    const long = 58.102393;
+    const lat = 18.129152;
+
+    const result = await mariaModel.updateData(mariaModel.queries.updateBike, [long, lat, id])
+
+    let geojson = {
+        "type": "FeatureCollection",
+        "features": [
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "coordinates": [
+                    long, lat
+                    ],
+                    "type": "Point"
+                }
+            }
+        ]
+    }
+
+    if (result.affectedRows == 0) {
+        geojson = [];
+    }
+
+    res.json(geojson)
+})
+
+app.get('/mariadb/bike/varchar', async (req, res) => {
+    const id = 'GOGOGO';
+    const long = 58.102393;
+    const lat = 18.129152;
+
+    let geojson = {
+        "type": "FeatureCollection",
+        "features": [
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "coordinates": [
+                        long, lat
+                    ],
+                    "type": "Point"
+                }
+            }
+        ]
+    }
+
+    geojson = JSON.stringify(geojson);
+
+    const result = await mariaModel.updateData(mariaModel.queries.updateBikeVarchar, [geojson, id])
+
+    geojson = JSON.parse(geojson);
+
+    if (result.affectedRows == 0) {
+        geojson = [];
+    }
+
+    res.json(geojson)
+})
+
 app.listen(port, console.log(`App is listening on port ${port}`));
 
